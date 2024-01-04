@@ -8,4 +8,4 @@ elif n == 0:
     phrase = "0"
 else:
     phrase = "less than 6 and not 0"
-print(f"Last digit of {number} is {n} and is {phrase}")
+print("Last digit of {} is {} and is {}".format(number, n, phrase))
