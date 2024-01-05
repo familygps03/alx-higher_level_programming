@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-for i in range(122, 96, -1):
-    if i % 2 == 0:
-       char = chr(i)
+for char_code in range(122, 96, -1):
+    if char_code % 2 == 0:
+        c = chr(char_code)
     else:
-	chr(i - 32)
-    print("{:s}".format(char), end='')
+        c = chr(char_code - 32)
+    print("{:s}".format(c), end='')
