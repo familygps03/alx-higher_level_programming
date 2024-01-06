@@ -3,19 +3,22 @@ if __name__ == "__main__":
     import sys
     from calculator_1 import add, sub, mul, div
 
-    if len(sys.argv) != 4:
+    arg_count = len(sys.argv) - 1
+
+    if arg_count != 3:
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
         sys.exit(1)
 
     a, operator, b = map(int, sys.argv[1:4])
 
-    operations = {'+': add, '-': sub, '*': mul, '/': div}
-
-    if operator not in operations:
+    if operator not in {'+', '-', '*', '/'}:
         print("Unknown operator. Available operators: +, -, * and /")
         sys.exit(1)
 
-    result = operations[operator](a, b)
+    if operator == '/' and b == 0:
+        print("Error: Division by zero is not allowed.")
+        sys.exit(1)
 
-    print("{:d} {:s} {:d} = {:d}".format(a, operator, b, result))
+    result = {'+': add, '-': sub, '*': mul, '/': div}[operator](a, b)
 
+    print("{} {} {} = {}".format(a, operator, b, result))
