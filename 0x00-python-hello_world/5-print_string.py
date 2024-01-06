@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-string_value = "Holberton School"
-multiplied_string = string_value * 3
-substring = string_value[:9]
-print(multiplied_string)
-print(substring)
+if __name__ == "__main__":
+    str = "Holberton School"
+    print(str * 3, "\n", str[:9])
