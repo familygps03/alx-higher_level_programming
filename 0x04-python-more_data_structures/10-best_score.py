@@ -1,3 +1,5 @@
 #!/usr/bin/python3
-def best_score(a_dictionary):
-    return max(a_dictionary, key=a_dictionary.get, default=None)
+def find_best_score(scores):
+    if not scores or len(scores) == 0:
+        return None
+    return max(scores, key=scores.get)
