@@ -5,5 +5,4 @@ def complex_delete(input_dict, target_value):
             if value == target_value:
                 del input_dict[key]
                 break
-
     return input_dict
