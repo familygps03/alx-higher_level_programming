@@ -1,14 +1,7 @@
 #!/usr/bin/python3
-def find_best_score(a_dict):
-    if not isinstance(a_dict, dict) or len(a_dict) == 0:
+def best_score(a_dictionary):
+    if not isinstance(a_dictionary, dict) or len(a_dictionary) == 0:
         return None
 
-    result_key = list(a_dict.keys())[0]
-    best_score = list(a_dict.values())[0]
-    
-    for key, value in a_dict.items():
-        if value > best_score:
-            best_score = value
-            result_key = key
-            
+    result_key = max(a_dictionary, key=a_dictionary.get)
     return result_key
