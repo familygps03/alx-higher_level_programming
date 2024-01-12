@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 def uniq_add(my_list=[]):
-    product = 0
-    for m in set(my_list):
-        product += i
-    return (product)
+    new_list = set(my_list)
+    product_add = 0
+    for j in new_list:
+        product_add += j
+    return (product_add)
