@@ -1,40 +1,47 @@
 #!/usr/bin/python3
-"""Defines a class MagicClass"""
-import math
+"""Defines the MagicClass"""
 
+import math
 
 class MagicClass:
     """
-    Class that defines properties of MagicClass.
+    A class representing the properties of MagicClass.
 
     Attributes:
-        radius: radius.
+        radius (int or float): The radius of the circle.
     """
+
     def __init__(self, radius=0):
-        """Creates new instances of MagicClass.
+        """
+        Initializes a new instance of MagicClass.
 
         Args:
-            radius: radius.
+            radius (int or float): The radius of the circle.
 
         Raises:
-            TypeError: radius must be a number .
+            TypeError: If radius is not a number.
         """
         self.__radius = 0
-        if not isinstance(radius, int) and not isinstance(radius, float):
-            raise TypeError("radius must be a number")
+
+        if not isinstance(radius, (int, float)):
+            raise TypeError("Radius must be a number.")
         else:
             self.__radius = radius
 
     def area(self):
-        """Returns area
+        """
+        Calculates and returns the area of the circle.
 
-        Returns: area.
+        Returns:
+            float: The area of the circle.
         """
         return math.pi * self.__radius ** 2
 
     def circumference(self):
-        """Returns circumference
+        """
+        Calculates and returns the circumference of the circle.
 
-        Returns: circumference.
+        Returns:
+            float: The circumference of the circle.
         """
         return 2 * math.pi * self.__radius
