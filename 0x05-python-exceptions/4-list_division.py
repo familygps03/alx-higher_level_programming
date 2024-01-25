@@ -1,14 +1,29 @@
 #!/usr/bin/python3
-list_division = __import__('4-list_division').list_division
 
-my_l_1 = [10, 8, 4]
-my_l_2 = [2, 4, 4]
-result = list_division(my_l_1, my_l_2, max(len(my_l_1), len(my_l_2)))
-print(result)
+def list_division(my_list_1, my_list_2, list_length):
+    """function that divides element by element 2 lists.
 
-print("--")
+    Args:
+        my_list_1: list 1
+        my_list_2: list 2
+        list_length: length of list
 
-my_l_1 = [10, 8, 4, 4]
-my_l_2 = [2, 0, "H", 2, 7]
-result = list_division(my_l_1, my_l_2, max(len(my_l_1), len(my_l_2)))
-print(result)
+    Returns: New list with all the divisions
+    """
+    new_list = []
+
+    for item in range(list_length):
+        try:
+            quotient = my_list_1[item] / my_list_2[item]
+        except IndexError:
+            print("out of range")
+            quotient = 0
+        except TypeError:
+            print("wrong type")
+            quotient = 0
+        except ZeroDivisionError:
+            print("division by 0")
+            quotient = 0
+        finally:
+            new_list.append(quotient)
+    return new_list
