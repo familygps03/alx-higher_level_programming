@@ -1,22 +1,28 @@
 #!/usr/bin/python3
 from sys import argv
 
+"""
+Module soln for The N Queens Puzzle
+"""
+
 class Queen:
     """
-    Class to solve the N-Queens problem
+    class Queen to solve nQueens problem
     """
     def can_move(self, x, y, right):
         """
-        Check if the queen can move within the valid constraint column
+        Checking if queen can move in the valid constraint column given
         """
         for a in range(x):
-            if right[a] == y or abs(right[a] - y) == (x - a):
-                return False
-        return True
+            if right[a] == y:
+                return (False)
+            if abs(right[a] - y) == (x - a):
+                return (False)
+            return (True)
 
     def soln(self, n, N, right):
         """
-        Find all valid combinations using recursion
+        Finding all the right combos that can happen using recursion
         """
         if n == N:
             print("[", end="")
@@ -30,7 +36,7 @@ class Queen:
         for j in range(N):
             if self.can_move(n, j, right):
                 right[n] = j
-                self.soln(n + 1, N, right)
+                self.solution(n + 1, N, right)
 
 if __name__ == "__main__":
     count = len(argv)
@@ -40,14 +46,13 @@ if __name__ == "__main__":
         exit(1)
     else:
         try:
-            N = int(argv[1])
-        except ValueError:
+            N = int(arg[1])
+        except:
             print("N must be a number")
             exit(1)
-
     if N < 4:
         print("N must be at least 4")
         exit(1)
 
     final = Queen()
-    final.soln(0, N, [None for _ in range(N)])
+    final.soln(0, N, [None for i in range(N)])
