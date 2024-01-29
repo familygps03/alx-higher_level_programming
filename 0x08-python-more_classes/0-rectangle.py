@@ -3,6 +3,5 @@
 
 
 class Rectangle:
-    """A class representing the properties of a rectangle.
-    This class is currently empty."""
+    """A class representing the properties of a rectangle."""
     pass
