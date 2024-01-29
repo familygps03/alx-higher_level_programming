@@ -4,6 +4,5 @@
 
 class Rectangle:
     """A class representing the properties of a rectangle.
-    This class is currently empty.
-    """
+    This class is currently empty."""
     pass
