@@ -1,17 +1,16 @@
 #!/usr/bin/python3
-"""Defines a function that prints a text with 2 new lines after each
+"""Defines a function that prints a text with 2 new lines after each,
 of these characters: . ? and :
-
 Attributes:
-    print_formatted_text: function that prints a text with specific conditions
+    text_indentation: function that prints a text with specific conditions
 """
 
 
-def print_formatted_text(text):
+def text_indentation(text):
     """Prints a text with 2 new lines after .?: characters.
 
     Args:
-        text (str): String to be examined.
+        text (str): string to be examined.
 
     Raises:
         TypeError: If text is not of type str.
