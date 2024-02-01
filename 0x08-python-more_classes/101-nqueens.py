@@ -1,110 +1,58 @@
 #!/usr/bin/python3
-"""The N-queens puzzle"""
+from sys import argv
 
-import sys
+"""
+Module soln for The N Queens Puzzle
+"""
 
-
-def init_board(n):
-    """Initialize an `n`x`n` sized chessboard with 0's."""
-    board = []
-    [board.append([]) for i in range(n)]
-    [row.append(' ') for i in range(n) for row in board]
-    return (board)
-
-
-def board_deepcopy(board):
-    """Return a deepcopy of a chessboard."""
-    if isinstance(board, list):
-        return list(map(board_deepcopy, board))
-    return (board)
-
-
-def get_solution(board):
-    """Return the list of lists representation in a board."""
-    solution = []
-    for r in range(len(board)):
-        for c in range(len(board)):
-            if board[r][c] == "Q":
-                solution.append([r, c])
-                break
-    return (solution)
-
-
-def xout(board, row, col):
-    """X spots on a chessboard.
+class Queen:
     """
-    # X out all forward spots
-    for c in range(col + 1, len(board)):
-        board[row][c] = "x"
-    # X out all backwards spots
-    for c in range(col - 1, -1, -1):
-        board[row][c] = "x"
-    # X out all spots below
-    for r in range(row + 1, len(board)):
-        board[r][col] = "x"
-    # X out all spots above
-    for r in range(row - 1, -1, -1):
-        board[r][col] = "x"
-    # X out all spots diagonally down to the right
-    c = col + 1
-    for r in range(row + 1, len(board)):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    # X out all spots diagonally up to the left
-    c = col - 1
-    for r in range(row - 1, -1, -1):
-        if c < 0:
-            break
-        board[r][c]
-        c -= 1
-    # X out all spots diagonally up to the right
-    c = col + 1
-    for r in range(row - 1, -1, -1):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    # X out all spots diagonally down to the left
-    c = col - 1
-    for r in range(row + 1, len(board)):
-        if c < 0:
-            break
-        board[r][c] = "x"
-        c -= 1
-
-
-def recursive_solve(board, row, queens, solutions):
-    """Recursively solve an N-queens puzzle.
+    class Queen to solve nQueens problem
     """
-    if queens == len(board):
-        solutions.append(get_solution(board))
-        return (solutions)
+    def can_move(self, x, y, right):
+        """
+        Checking if queen can move in the valid constraint column given
+        """
+        for a in range(x):
+            if right[a] == y:
+                return (False)
+            if abs(right[a] - y) == (x - a):
+                return (False)
+            return (True)
 
-    for c in range(len(board)):
-        if board[row][c] == " ":
-            tmp_board = board_deepcopy(board)
-            tmp_board[row][c] = "Q"
-            xout(tmp_board, row, c)
-            solutions = recursive_solve(tmp_board, row + 1,
-                    queens + 1, solutions)
+    def soln(self, n, N, right):
+        """
+        Finding all the right combos that can happen using recursion
+        """
+        if n == N:
+            print("[", end="")
+            for j in range(N):
+                print("{}, {}]".format(j, right[j]), end="")
+                if j < N - 1:
+                    print(", ", end="")
+            print("]")
+            return
 
-            return (solutions)
-
+        for j in range(N):
+            if self.can_move(n, j, right):
+                right[n] = j
+                self.solution(n + 1, N, right)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-    if sys.argv[1].isdigit() is False:
-        print("N must be a number")
-        sys.exit(1)
-    if int(sys.argv[1]) < 4:
-        print("N must be at least 4")
-        sys.exit(1)
+    count = len(argv)
 
-    board = init_board(int(sys.argv[1]))
-    solutions = recursive_solve(board, 0, 0, [])
-    for sol in solutions:
-        print(sol)
+    if count != 2:
+        print("Usage: nqueens N")
+        exit(1)
+    else:
+        try:
+            N = int(arg[1])
+        except:
+            print("N must be a number")
+            exit(1)
+    if N < 4:
+        print("N must be at least 4")
+        exit(1)
+
+    final = Queen()
+    final.soln(0, N, [None for i in range(N)])
