@@ -5,37 +5,37 @@ MyInt is a rebel. MyInt has == and != operators inverted
 
 
 class MyInt(int):
-    """Defines a class MyInt, with inverted equality operators.
+    """Defines a class MyInt.
 
     Args:
-        int (int): Value.
+        int (int): value
     """
     def __init__(self, value):
-        """Creates a new instance of class MyInt.
+        """Creates new instances of class MyInt.
 
         Args:
-            value (int): Integer value.
+            value (int): integer.
         """
-        super().__init__(value)
+        self.__value = value
 
     def __eq__(self, other):
-        """Override the equality operator.
+        """The method equal
 
         Args:
-            other (int): Another integer.
+            other (int): integer.
 
         Returns:
-            bool: True if not equal, False otherwise.
+            boolean: True or False.
         """
-        return super().__ne__(other)
+        return self.__value != other
 
     def __ne__(self, other):
-        """Override the inequality operator.
+        """The method not equal
 
         Args:
-            other (int): Another integer.
+            other (int): integer.
 
         Returns:
-            bool: True if equal, False otherwise.
+            boolean: True or False
         """
-        return super().__eq__(other)
+        return self.__value == other
