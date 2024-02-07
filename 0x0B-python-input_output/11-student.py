@@ -4,20 +4,20 @@
 
 class Student:
     """
-    Class that defines properties of a student.
+    Class that defines properties of student.
 
     Attributes:
-        first_name (str): The first name of the student.
-        last_name (str): The last name of the student.
-        age (int): The age of the student.
+        first_name (str): first name of student.
+        last_name (int): last name of student.
+        age (int): age of student.
     """
     def __init__(self, first_name, last_name, age):
-        """Creates a new instance of Student.
+        """Creates new instances of Student.
 
         Args:
-            first_name (str): The first name of the student.
-            last_name (str): The last name of the student.
-            age (int): The age of the student.
+            first_name (str): first name of student.
+            last_name (int): last name of student.
+            age (int): age of student.
         """
         self.first_name = first_name
         self.last_name = last_name
@@ -26,26 +26,29 @@ class Student:
     def to_json(self, attrs=None):
         """Retrieves a dictionary representation of a Student instance.
 
-        If attrs is a list of strings, only attributes whose names are
-        contained in this list must be retrieved.
+        If attrs is a list of strings, only attribute names contained in,
+        this list must be retrieved.
         Otherwise, all attributes must be retrieved.
 
-        Args:
-            attrs (list, optional): A list of strings representing attribute
-            names to retrieve. Defaults to None.
-
         Returns:
-            dict: A dictionary representation of the Student instance.
+            dict: dictionary representation.
         """
         if attrs is None:
             return self.__dict__
 
-        return {attr: getattr(self, attr) for attr in attrs if hasattr(self, attr)}
+        new_dict = {}
+        for item in attrs:
+            try:
+                new_dict[item] = self.__dict__[item]
+            except Exception:
+                pass
+        return new_dict
 
     def reload_from_json(self, json):
         """Replaces all attributes of the Student instance.
 
         Args:
-            json (dict): A dictionary containing attribute-value pairs.
+            json (dict): json object.
         """
+        # print("Type json --> {}".format(type(json)))
         self.__dict__.update(json)
