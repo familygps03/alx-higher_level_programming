@@ -1,56 +1,43 @@
 #!/usr/bin/python3
-"""Reads input from standard input and calculates metrics.
-
-After every ten lines or a keyboard interruption (CTRL + C),
-prints the following statistics:
-    - Total file size up to that point.
-    - Count of encountered status codes up to that point.
+"""Module containing a script that reads stdin line by line and computes metrics.
+Every 10 lines and after a keyboard interruption (CTRL + C), it prints the statistics since the beginning:
+Total file size: <total size>, where <total size> is the sum of all previous sizes (see input format above).
+Number of lines by status code:
+Possible status codes: 200, 301, 400, 401, 403, 404, 405, and 500.
+If a status code doesn’t appear, nothing is printed for that status code.
+Format: <status code>: <number>. Status codes are printed in ascending order.
 """
 
+import sys
 
-def print_statistics(file_size, status_code_count):
-    """Prints accumulated metrics.
+file_size = 0
+status_tally = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
+line_count = 0
 
-    Args:
-        file_size (int): The total accumulated file size.
-        status_code_count (dict): The accumulated count of status codes.
-    """
-    print("Total file size: {}".format(file_size))
-    for code in sorted(status_code_count):
-        print("{}: {}".format(code, status_code_count[code]))
-
-
-if __name__ == "__main__":
-    import sys
-
-    total_size = 0
-    status_codes = {}
-    valid_status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-    line_count = 0
-
-    try:
-        for line in sys.stdin:
-            if line_count == 10:
-                print_statistics(total_size, status_codes)
-                line_count = 1
-            else:
+try:
+    for line in sys.stdin:
+        tokens = line.split()
+        if len(tokens) >= 2:
+            status_code = tokens[-2]
+            if status_code in status_tally:
+                status_tally[status_code] += 1
                 line_count += 1
-
-            tokens = line.split()
             try:
-                total_size += int(tokens[-1])
-            except (IndexError, ValueError):
+                file_size += int(tokens[-1])
+            except ValueError:
                 pass
+        if line_count % 10 == 0:
+            print("File size: {:d}".format(file_size))
+            for key, value in sorted(status_tally.items()):
+                if value:
+                    print("{:s}: {:d}".format(key, value))
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
 
-            try:
-                code = tokens[-2]
-                if code in valid_status_codes:
-                    status_codes[code] = status_codes.get(code, 0) + 1
-            except IndexError:
-                pass
-
-        print_statistics(total_size, status_codes)
-
-    except KeyboardInterrupt:
-        print_statistics(total_size, status_codes)
-        raise
+except KeyboardInterrupt:
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
