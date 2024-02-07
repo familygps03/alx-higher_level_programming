@@ -18,16 +18,16 @@ try:
     for line in sys.stdin:
         tokens = line.split()
         if len(tokens) >= 2:
-            previous_line_count = line_count
+            b = line_count
             if tokens[-2] in status_tally:
                 status_tally[tokens[-2]] += 1
                 line_count += 1
             try:
                 file_size += int(tokens[-1])
-                if previous_line_count == line_count:
+                if b == line_count:
                     line_count += 1
             except Exception:
-                if previous_line_count == line_count:
+                if b == line_count:
                     continue
         if line_count % 10 == 0:
             print("File size: {:d}".format(file_size))
