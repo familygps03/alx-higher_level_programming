@@ -1,44 +1,25 @@
 #!/usr/bin/python3
-"""Defines a class Square based on 9-rectangle.py.
+"""Defines a Square class that inherits from Rectangle (9)"""
 
-Attributes:
-    width (int): width of the rectangle.
-    height (int): height of the rectangle.
-"""
-
-
+from typing import Union
 Rectangle = __import__('9-rectangle').Rectangle
 
 
 class Square(Rectangle):
-    """Defines a class Square.
+    """A Square class inheriting from Rectangle."""
 
-    Args:
-        Rectangle (Rectangle): rectangle
-    """
-
-    def __init__(self, size):
-        """Creates new instances of class Square.
+    def __init__(self, size: int):
+        """Initializes a Square instance.
 
         Args:
-            size (int): size of 1 side of square.
+            size (int): The size of one side of the square.
         """
-        self.integer_validator("size", size)
-        self.__size = size
         super().__init__(size, size)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Returns a string representation of the square.
 
         Returns:
-            str: square.
+            str: A string indicating the square's size.
         """
-        return ("[Square] {}/{}".format(self.__size, self.__size))
-
-    def area(self):
-        """Calculates the area of a square.
-
-        Returns:
-            int: the area of the square.
-        """
-        return self.__size ** 2
+        return f"[Square] {self.width}/{self.height}"
